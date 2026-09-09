@@ -2,9 +2,8 @@
 
 Assignment: [serackis/IS-Lab2](https://github.com/serackis/IS-Lab2).
 
-- `lab2_main.m`: main task, 20 examples, a 1–8–1 network, tanh hidden layer, linear output, and manual backpropagation.
-- `lab2_surface.m`: additional task, two-variable surface, and a 2–8–1 network.
-- `DEFENSE.md`: explanations, formulas, and defense questions.
+- `main/lab2_main.m`: main task, 20 examples, a 1–8–1 network, tanh hidden layer, linear output, and manual backpropagation.
+- `additional/lab2_surface.m`: additional task, two-variable surface, and a 2–8–1 network.
 
 Open an `.m` file in MATLAB and press Run. The data is created inside the script. No extra toolboxes are required. The script prints coefficients and errors and creates plots.
 
