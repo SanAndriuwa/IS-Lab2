@@ -3,7 +3,7 @@
 clear; clc; close all;
 rng(1); % reproducible result on every run
 
-x = linspace(0, 1, 20);
+x = 0.1:1/22:1;
 % The README has an extra closing parenthesis. The grouping is corrected here.
 d = (1 + 0.6*sin(2*pi*x/0.7) + 0.3*sin(2*pi*x)) / 2;
 H = 8;
@@ -13,6 +13,7 @@ w2 = 0.3*randn(1, H);
 b2 = 0;
 eta = 0.02;
 maxEpochs = 100000;
+targetLoss = 1e-4;       % acceptable MSE: 0.0001
 loss = zeros(1, maxEpochs);
 
 for epoch = 1:maxEpochs
@@ -38,14 +39,17 @@ for epoch = 1:maxEpochs
         yTrain(i) = w2*tanh(w1*x(i) + b1) + b2;
     end
     loss(epoch) = mean((d - yTrain).^2);
-    if loss(epoch) < 1e-4
+
+    % Stop when the average squared error is already small enough.
+    % This avoids spending time on unnecessary extra epochs.
+    if loss(epoch) <= targetLoss
         break;
     end
 end
 loss = loss(1:epoch);
 
 % A dense grid shows the behavior between training points.
-xTest = linspace(0, 1, 201);
+xTest = linspace(0.1, 1, 201);
 dTest = (1 + 0.6*sin(2*pi*xTest/0.7) + 0.3*sin(2*pi*xTest)) / 2;
 yTest = zeros(size(xTest));
 for i = 1:length(xTest)
@@ -56,14 +60,16 @@ fprintf('Training MSE: %.6f\n', loss(end));
 fprintf('Dense-grid MSE: %.6f\n', mean((dTest-yTest).^2));
 disp('Hidden-layer parameters:');
 disp(table(w1, b1));
-disp('Output weights w2:'); disp(w2);
+disp('Output weights w2:');
+disp(w2);
 fprintf('Output bias b2: %.6f\n', b2);
 
 figure;
 plot(xTest, dTest, 'b-', xTest, yTest, 'r--', x, d, 'ko', 'LineWidth', 1.5);
 legend('Target function', 'Network', 'Training points', 'Location', 'best');
 xlabel('x'); ylabel('y'); grid on; title('Function approximation');
-figure;
-semilogy(loss); xlabel('Epoch'); ylabel('MSE'); grid on;
-title('Training error');
 
+figure;
+semilogy(loss);
+xlabel('Epoch'); ylabel('MSE'); grid on;
+title('Training error');
