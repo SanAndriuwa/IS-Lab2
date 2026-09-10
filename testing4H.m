@@ -46,7 +46,6 @@ for j = 1:epoch
 
         y1_2 = v1_2;
 
-        y_mokymas(i)= y1_2;
         %% Output
         e = target(i) - y1_2;
 
@@ -72,9 +71,17 @@ for j = 1:epoch
         w31_1 = w31_1 + eta*delta3_1*x(i);
         b3_1 = b3_1 + eta*delta3_1;
         w41_1 = w41_1 + eta*delta4_1*x(i);
-        b4_1 = b4_1 + eta*delta2_1;
+        b4_1 = b4_1 + eta*delta4_1;
     end
 
+end
+%% Training predictions with the final weights
+for i = 1:length(x)
+    y1_1 = tanh(x(i)*w11_1 + b1_1);
+    y2_1 = tanh(x(i)*w21_1 + b2_1);
+    y3_1 = tanh(x(i)*w31_1 + b3_1);
+    y4_1 = tanh(x(i)*w41_1 + b4_1);
+    y_mokymas(i) = y1_1*w11_2 + y2_1*w21_2 + y3_1*w31_2 + y4_1*w41_2 + b1_2;
 end
 fig1=figure;
 fig1.Name = 'Apmokymas';
