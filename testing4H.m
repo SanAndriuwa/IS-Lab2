@@ -3,7 +3,7 @@ clc;
 close all;
 x = 0.1:1/22:1;
 target = (1 + 0.6*sin(2*pi*x/0.7) + 0.3*sin(2*pi*x)) / 2;
-epoch = 10000;
+epoch = 100000;
 eta = 0.1;
 
 %% Hidden 1-2
@@ -84,8 +84,8 @@ plot(x, y_mokymas, '-*')
 legend('Target', 'Tinklas')
 
 
-% testavimas
-x_naujas = 0.025:1/40:1;
+%% testavimas
+x_naujas = 0.01:1/100:1;
 target_naujas = (1 + 0.6*sin(2*pi*x_naujas/0.7) + 0.3*sin(2*pi*x_naujas)) / 2;
 Y = zeros(size(x_naujas));
 for i = 1:length(x_naujas)
