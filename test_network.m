@@ -1,7 +1,7 @@
 function [x_test, target_test, Y_test, mse_test] = test_network(w1, b1, w2, b2, x_start, x_step, x_end)
-% Пример: test_network([w11_1;w21_1], [b1_1;b2_1], ...
+% Example: test_network([w11_1;w21_1], [b1_1;b2_1], ...
 %                     [w11_2,w21_2], b1_2, 0.05, 1/22, 1);
-% w1, b1: Hx1; w2: 1xH; b2: число. Подходит для H=2 и H=4.
+% w1, b1: Hx1; w2: 1xH; b2: scalar. Works with 2 or 4 hidden neurons.
 if nargin < 5, x_start = 0.05; end
 if nargin < 6, x_step = 1/22; end
 if nargin < 7, x_end = 1; end
